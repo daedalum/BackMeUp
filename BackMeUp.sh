@@ -151,7 +151,7 @@ USB(){
 
         #Docs
         rsync -a -v $SPREADSHEET $UDOC &&
-        rsync -a -v $OBSIDIAN $UOBS &&
+        rsync -a --delete -v $OBSIDIAN $UOBS &&
         rsync -a -v $VAULT $UVT &&
         rsync -a -v $V_CONFIG $UMINC &&
 
@@ -168,7 +168,6 @@ USB(){
 
         #Save Files
         rsync -a -v $SAVESNDS $USNDS &&
-        rsync -a -v $SM120 $USM120 &&
 
         #Unmount and close the LUKS Partition
         sudo umount /mnt/usb &&
@@ -228,7 +227,7 @@ while getopts ":haucV" OPTION; do
             exit;;
         
         \?) #Invalid Option
-            echo "Error: Invalid option. Try one of the options [-h|a|p|c]"
+            echo "Error: Invalid option. Try one of the options [-h|a|u|c|V]"
             exit;;
     esac
 done
