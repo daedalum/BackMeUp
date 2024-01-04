@@ -35,107 +35,111 @@ Version(){
 Cloud(){
     #A function that copy and/or sync files to the cloud via rsync.
 
+    #Set the password to decrypt the configuration file, it is removed after the operation
+    echo "Please, enter your password."
+    source "$HOME/set-rclone-password"
+
     #Docs
     echo -e "$GREEN Copying '$SPREADSHEET' to '$DOCD'$NC"
-    rclone copy -v $SPREADSHEET $DOCD &&
+    rclone  --ask-password=false copy -v $SPREADSHEET $DOCD &&
 
     echo -e "$GREEN Copying '$SPREADSHEET' to '$DOCM'$NC"
-    rclone copy -v $SPREADSHEET $DOCM &&
+    rclone  --ask-password=false copy -v $SPREADSHEET $DOCM &&
 
     echo -e "$YELLOW Verifying '$SPREADSHEET' in '$DOCD'. Please, wait...$NC"
     echo ""
     echo "Verifying '$SPREADSHEET' in '$DOCD'" >> $RCLONELOG
-    rclone cryptcheck --log-file=$RCLONELOG $SPREADSHEET $DOCD &&
+    rclone  --ask-password=false cryptcheck --log-file=$RCLONELOG $SPREADSHEET $DOCD &&
     echo "" >> $RCLONELOG
 
     echo -e "$GREEN Copying '$OBSIDIAN' to '$OBSD'$NC"
-    rclone sync -v $OBSIDIAN $OBSD &&
+    rclone  --ask-password=false sync -v $OBSIDIAN $OBSD &&
 
     echo -e "$YELLOW Verifying '$OBSIDIAN' in '$OBSD'. Please, wait...$NC"
     echo ""
     echo "Verifying '$OBSIDIAN' in '$OBSD'" >> $RCLONELOG
-    rclone cryptcheck --log-file=$RCLONELOG $OBSIDIAN $OBSD &&
+    rclone  --ask-password=false cryptcheck --log-file=$RCLONELOG $OBSIDIAN $OBSD &&
     echo "" >> $RCLONELOG
 
     echo -e "$GREEN Copying '$OBSIDIAN' to '$OBSM'$NC"
-    rclone sync -v $OBSIDIAN $OBSM &&
+    rclone  --ask-password=false sync -v $OBSIDIAN $OBSM &&
 
     echo -e "$GREEN Copying '$VAULT' to '$VTD'$NC"
-    rclone copy -v $VAULT $VTD &&
+    rclone  --ask-password=false copy -v $VAULT $VTD &&
 
     echo "$YELLOW Verifying '$VAULT' in '$VTD'. Please, wait...$NC"
     echo ""
     echo "Verifying '$VAULT' in '$VTD'" >> $RCLONELOG
-    rclone cryptcheck --log-file=$RCLONELOG $VAULT $VTD &&
+    rclone  --ask-password=false cryptcheck --log-file=$RCLONELOG $VAULT $VTD &&
     echo "" >> $RCLONELOG
 
     echo -e "$GREEN Copying '$V_CONFIG' to '$VTD'$NC"
-    rclone copy -v $V_CONFIG $VTD &&
+    rclone  --ask-password=false copy -v $V_CONFIG $VTD &&
 
     echo "$YELLOW Verifying '$V_CONFIG' in '$VTD'. Please, wait...$NC"
     echo ""
     echo "Verifying '$V_CONFIG' in '$VTD'" >> $RCLONELOG
-    rclone cryptcheck --log-file=$RCLONELOG $V_CONFIG $VTD &&
+    rclone  --ask-password=false cryptcheck --log-file=$RCLONELOG $V_CONFIG $VTD &&
     echo "" >> $RCLONELOG
 
 
     #Pictures and Videos
     echo -e "$GREEN Copying '$PICTURES' to '$PICG'$NC"
-    rclone copy -v $PICTURES $PICG &&
+    rclone  --ask-password=false copy -v $PICTURES $PICG &&
 
     echo -e "$GREEN Copying '$PICTURES' to '$PICM'$NC"
-    rclone copy -v $PICTURES $PICM &&
+    rclone  --ask-password=false copy -v $PICTURES $PICM &&
 
     echo -e "$YELLOW Verifying '$PICTURES' in '$PICG'. Please, wait...$NC"
     echo ""
     echo "Verifying '$PICTURES' in '$PICG'" >> $RCLONELOG
-    rclone cryptcheck --log-file=$RCLONELOG $PICTURES $PICG &&
+    rclone  --ask-password=false cryptcheck --log-file=$RCLONELOG $PICTURES $PICG &&
     echo "" >> $RCLONELOG
 
 
     #Art
     echo -e "$GREEN Copying '$ART' to '$ARTG'$NC"
-    rclone copy -v $ART $ARTG &&
+    rclone  --ask-password=false copy -v $ART $ARTG &&
 
     echo -e "$GREEN Copying '$ART' to '$ARTM'$NC"
-    rclone copy -v $ART $ARTM &&
+    rclone  --ask-password=false copy -v $ART $ARTM &&
 
     echo -e "$YELLOW Verifying '$ART' in '$ARTG'. Please, wait...$NC"
     echo ""
     echo "Verifying '$ART' in '$ARTG'" >> $RCLONELOG
-    rclone cryptcheck --log-file=$RCLONELOG $ART $ARTG &&
+    rclone  --ask-password=false cryptcheck --log-file=$RCLONELOG $ART $ARTG &&
     echo "" >> $RCLONELOG
 
 
     #Design
     echo -e "$GREEN Copying '$DESIGN' to '$DSNG'$NC"
-    rclone copy -v $DESIGN $DSNG &&
+    rclone  --ask-password=false copy -v $DESIGN $DSNG &&
 
     echo -e "$GREEN Copying '$DESIGN' to '$DSNM'$NC"
-    rclone copy -v $DESIGN $DSNM &&
+    rclone  --ask-password=false copy -v $DESIGN $DSNM &&
 
     echo -e "$YELLOW Verifying '$DESIGN' in '$DSNG'. Please, wait...$NC"
     echo ""
     echo "Verifying '$DESIGN' in '$DSNG'" >> $RCLONELOG
-    rclone cryptcheck --log-file=$RCLONELOG $DESIGN $DSNG &&
+    rclone  --ask-password=false cryptcheck --log-file=$RCLONELOG $DESIGN $DSNG &&
     echo "" >> $RCLONELOG
 
 
     #Android
     echo -e "$GREEN Copying '$ANDROID/contacts.vcf' to '$DOCM'$NC"
-    rclone copy -v $ANDROID/contacts.vcf $DOCM &&
+    rclone  --ask-password=false copy -v $ANDROID/contacts.vcf $DOCM &&
 
     echo -e "$GREEN Copying '$ANDROID/contacts.vcf' to '$DOCD'$NC"
-    rclone copy -v $ANDROID/contacts.vcf $DOCD &&
+    rclone  --ask-password=false copy -v $ANDROID/contacts.vcf $DOCD &&
 
     echo -e "$GREEN Copying '$ANDROID/NewPipe.zip' to '$ZIPM'$NC"
-    rclone copy -v "$ANDROID/NewPipe.zip" $ZIPM &&
+    rclone  --ask-password=false copy -v "$ANDROID/NewPipe.zip" $ZIPM &&
 
     echo -e "$GREEN Copying '$ANDROID/NewPipe.zip' to '$ZIPD'$NC"
-    rclone copy -v "$ANDROID/NewPipe.zip" $ZIPD &&
+    rclone  --ask-password=false copy -v "$ANDROID/NewPipe.zip" $ZIPD &&
 
     echo -e "$GREEN Copying '$ANDROID/WhatsApp.zip' to '$ZIPM'$NC"
-    rclone copy -v "$ANDROID/WhatsApp.zip" $ZIPM
+    rclone  --ask-password=false copy -v "$ANDROID/WhatsApp.zip" $ZIPM
 }
 
 
