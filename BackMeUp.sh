@@ -141,11 +141,6 @@ Cloud(){
     echo -e "$GREEN Copying '$ANDROID/WhatsApp.zip' to '$ZIPM'$NC"
     rclone  --ask-password=false copy -v "$ANDROID/WhatsApp.zip" $ZIPM
 
-
-    #Misc
-    echo -e "$GREEN Copying $NPN to $M20"
-    rclone --ask-password=false copy -v $NPN $M20
-
 }
 
 
