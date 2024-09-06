@@ -168,7 +168,7 @@ USB(){
         rsync -a -v $ANDROID $UMISC &&
 
         #Save Files
-        rsync -a -v $SAVESNDS $USNDS &&
+        rsync -a -v $SAVES $USAV &&
 
         #Misc
         rsync -a -v $FRTB $UMISC &&
@@ -185,15 +185,11 @@ Android(){
     #If so, it pulls the selected files from it.
 
     adb start-server
-    if [[ -z $(adb devices | grep "S46DU4FEPRWC4LQG") ]]; then
+    if [[ -z $(adb devices | grep "ZF524PFT7N") ]]; then
     echo "Device not detected. Enable the option 'USB Debugging' and try again."
     else
-        adb pull "$SDCARD/NewPipe.zip" "$ANDROID" &&
-        adb pull "$SDCARD/contacts.vcf" "$ANDROID" &&
-        adb pull "$STORAGE/WhatsApp/Databases/" "$ANDROID" &&
-
-        zip -r -q "$ANDROID/WhatsApp.zip" "$ANDROID/Databases/" &&
-        rm -r "$ANDROID/Databases"
+        adb pull "sdcard/NewPipeData-moto-g04s.zip" "$ANDROID" &&
+        adb pull "sdcard/NewPipeData-xiaomi.zip" "$ANDROID" 
     fi
 
     adb kill-server
