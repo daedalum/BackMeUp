@@ -99,10 +99,10 @@ Cloud(){
 
     #Art
     echo -e "$GREEN Copying '$ART' to '$ARTG'$NC"
-    rclone  --ask-password=false copy -v $ART $ARTG &&
+    rclone  --ask-password=false copy -L -v $ART $ARTG &&
 
     echo -e "$GREEN Copying '$ART' to '$ARTM'$NC"
-    rclone  --ask-password=false copy -v $ART $ARTM &&
+    rclone  --ask-password=false copy -L -v $ART $ARTM &&
 
     echo -e "$YELLOW Verifying '$ART' in '$ARTG'. Please, wait...$NC"
     echo ""
@@ -113,10 +113,10 @@ Cloud(){
 
     #Design
     echo -e "$GREEN Copying '$DESIGN' to '$DSNG'$NC"
-    rclone  --ask-password=false copy -v $DESIGN $DSNG &&
+    rclone  --ask-password=false sync -v $DESIGN $DSNG &&
 
     echo -e "$GREEN Copying '$DESIGN' to '$DSNM'$NC"
-    rclone  --ask-password=false copy -v $DESIGN $DSNM &&
+    rclone  --ask-password=false sync -v $DESIGN $DSNM &&
 
     echo -e "$YELLOW Verifying '$DESIGN' in '$DSNG'. Please, wait...$NC"
     echo ""
@@ -126,21 +126,17 @@ Cloud(){
 
 
     #Android
-    echo -e "$GREEN Copying '$ANDROID/contacts.vcf' to '$DOCM'$NC"
-    rclone  --ask-password=false copy -v $ANDROID/contacts.vcf $DOCM &&
+    echo -e "$GREEN Copying '$ANDROID' to '$MISCM'$NC"
+    rclone --ask-password=false copy -v $ANDROID $MISCM &&
 
-    echo -e "$GREEN Copying '$ANDROID/contacts.vcf' to '$DOCD'$NC"
-    rclone  --ask-password=false copy -v $ANDROID/contacts.vcf $DOCD &&
+    echo -e "$GREEN Copying '$ANDROID' to '$MISCD'$NC"
+    rclone --ask-password=false copy -v $ANDROID $MISCD &&
 
-    echo -e "$GREEN Copying '$ANDROID/NewPipe.zip' to '$ZIPM'$NC"
-    rclone  --ask-password=false copy -v "$ANDROID/NewPipe.zip" $ZIPM &&
-
-    echo -e "$GREEN Copying '$ANDROID/NewPipe.zip' to '$ZIPD'$NC"
-    rclone  --ask-password=false copy -v "$ANDROID/NewPipe.zip" $ZIPD &&
-
-    echo -e "$GREEN Copying '$ANDROID/WhatsApp.zip' to '$ZIPM'$NC"
-    rclone  --ask-password=false copy -v "$ANDROID/WhatsApp.zip" $ZIPM
-
+    echo -e "$YELLOW Verifying '$ANDROID' in '$MISCD'. Please, wait...$NC"
+    echo ""
+    echo "Verifying '$ANDROID' in '$MISCD'" >> $RCLONELOG
+    rclone  --ask-password=false cryptcheck --log-file=$RCLONELOG $ANDROID $MISCD &&
+    echo "" >> $RCLONELOG
 }
 
 
@@ -158,10 +154,10 @@ USB(){
         rsync -a -v $SPREADSHEET $UDOC &&
         rsync -a --delete -v $OBSIDIAN $UOBS &&
         rsync -a -v $VAULT $UVT &&
-        rsync -a -v $V_CONFIG $UMINC &&
+        rsync -a -v $V_CONFIG $UMISC &&
 
         #Pictures and Videos
-        rsync -a -v $ART $UART &&
+        rsync -a -l -v $ART $UART &&
         rsync -a -v $PICTURES $UPIC &&
         rsync -a -v $DESIGN $UDSN &&
 
@@ -169,10 +165,13 @@ USB(){
         rsync -a -v $MUSIC $UMUS &&
 
         #Android
-        rsync -a -v $ANDROID $UMINC &&
+        rsync -a -v $ANDROID $UMISC &&
 
         #Save Files
         rsync -a -v $SAVESNDS $USNDS &&
+
+        #Misc
+        rsync -a -v $FRTB $UMISC &&
 
         #Unmount and close the LUKS Partition
         sudo umount /mnt/usb &&
