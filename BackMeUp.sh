@@ -40,18 +40,6 @@ Cloud(){
     source "$HOME/set-rclone-password"
 
     #Docs
-    echo -e "$GREEN Copying '$SPREADSHEET' to '$DOCD'$NC"
-    rclone --ask-password=false copy -v $SPREADSHEET $DOCD &&
-
-    echo -e "$GREEN Copying '$SPREADSHEET' to '$DOCM'$NC"
-    rclone --ask-password=false copy -v $SPREADSHEET $DOCM &&
-
-    echo -e "$YELLOW Verifying '$SPREADSHEET' in '$DOCD'. Please, wait...$NC"
-    echo ""
-    echo "Verifying '$SPREADSHEET' in '$DOCD'" >> $RCLONELOG
-    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $SPREADSHEET $DOCD &&
-    echo "" >> $RCLONELOG
-
     echo -e "$GREEN Copying '$OBSIDIAN' to '$OBSD'$NC"
     rclone --ask-password=false sync -v $OBSIDIAN $OBSD &&
 
@@ -151,7 +139,6 @@ USB(){
         sudo mount -t ext4 /dev/mapper/luks-data-traveler-64 /mnt/usb &&
 
         #Docs
-        rsync -a -v $SPREADSHEET $UDOC &&
         rsync -a --delete -v $OBSIDIAN $UOBS &&
         rsync -a -v $VAULT $UVT &&
         rsync -a -v $V_CONFIG $UMISC &&
@@ -162,7 +149,10 @@ USB(){
         rsync -a -v $DESIGN $UDSN &&
 
         #Music
-        rsync -a -v $MUSIC $UMUS &&
+        rsync -a --delete -v $MUSIC $UMUS &&
+
+        #Code
+        rsync -a --delete -v  $CODE $UCODE &&
 
         #Android
         rsync -a -v $ANDROID $UMISC &&
