@@ -39,44 +39,43 @@ Cloud(){
     echo "Please, enter your password."
     source "$HOME/set-rclone-password"
 
-    #Docs
-    echo -e "$GREEN Copying '$OBSIDIAN' to '$OBSD'$NC"
-    rclone --ask-password=false sync -v $OBSIDIAN $OBSD &&
+    ## Docs
 
-    echo -e "$YELLOW Verifying '$OBSIDIAN' in '$OBSD'. Please, wait...$NC"
+    echo -e "$GREEN Copying '$OBSIDIAN' to '$OBSG'$NC"
+    rclone --ask-password=false sync -v $OBSIDIAN $OBSG &&
+
+    echo -e "$YELLOW Verifying '$OBSIDIAN' in '$OBSG'. Please, wait...$NC"
     echo ""
-    echo "Verifying '$OBSIDIAN' in '$OBSD'" >> $RCLONELOG
-    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $OBSIDIAN $OBSD &&
-    echo "" >> $RCLONELOG
-
-    echo -e "$GREEN Copying '$OBSIDIAN' to '$OBSM'$NC"
-    rclone --ask-password=false sync -v $OBSIDIAN $OBSM &&
-
-    echo -e "$GREEN Copying '$VAULT' to '$VTD'$NC"
-    rclone --ask-password=false copy -v $VAULT $VTD &&
-
-    echo "$YELLOW Verifying '$VAULT' in '$VTD'. Please, wait...$NC"
-    echo ""
-    echo "Verifying '$VAULT' in '$VTD'" >> $RCLONELOG
-    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $VAULT $VTD &&
-    echo "" >> $RCLONELOG
-
-    echo -e "$GREEN Copying '$V_CONFIG' to '$VTD'$NC"
-    rclone --ask-password=false copy -v $V_CONFIG $VTD &&
-
-    echo "$YELLOW Verifying '$V_CONFIG' in '$VTD'. Please, wait...$NC"
-    echo ""
-    echo "Verifying '$V_CONFIG' in '$VTD'" >> $RCLONELOG
-    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $V_CONFIG $VTD &&
+    echo "Verifying '$OBSIDIAN' in '$OBSG'" >> $RCLONELOG
+    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $OBSIDIAN $OBSG &&
     echo "" >> $RCLONELOG
 
 
-    #Pictures and Videos
+    echo -e "$GREEN Copying '$VAULT' to '$VLTG'$NC"
+    rclone --ask-password=false copy -v $VAULT $VLTG &&
+
+    echo -e "$YELLOW Verifying '$VAULT' in '$VLTG'. Please, wait...$NC"
+    echo ""
+    echo "Verifying '$VAULT' in '$VLTG'" >> $RCLONELOG
+    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $VAULT $VLTG &&
+    echo "" >> $RCLONELOG
+
+    
+    echo -e "$GREEN Copying '$PDCL' to '$PDCG'$NC"
+    rclone --ask-password=false sync -v $PDCL $PDCG &&
+
+    echo -e "$YELLOW Verifying '$PDCL' in '$PDCG'. Please, wait...$NC"
+    echo ""
+    echo "Verifying '$PDCL' in '$PDCG'" >> $RCLONELOG
+    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $PDCL $PDCG &&
+    echo "" >> $RCLONELOG
+
+
+
+    ## Pictures
+
     echo -e "$GREEN Copying '$PICTURES' to '$PICG'$NC"
     rclone --ask-password=false copy -v $PICTURES $PICG &&
-
-    echo -e "$GREEN Copying '$PICTURES' to '$PICM'$NC"
-    rclone --ask-password=false copy -v $PICTURES $PICM &&
 
     echo -e "$YELLOW Verifying '$PICTURES' in '$PICG'. Please, wait...$NC"
     echo ""
@@ -85,12 +84,11 @@ Cloud(){
     echo "" >> $RCLONELOG
 
 
-    #Art
-    echo -e "$GREEN Copying '$ART' to '$ARTG'$NC"
-    rclone --ask-password=false copy -L -v $ART $ARTG &&
 
-    echo -e "$GREEN Copying '$ART' to '$ARTM'$NC"
-    rclone --ask-password=false copy -L -v $ART $ARTM &&
+    ## Art and Design
+
+    echo -e "$GREEN Copying '$ART' to '$ARTG'$NC"
+    rclone --ask-password=false sync -v $ART $ARTG &&
 
     echo -e "$YELLOW Verifying '$ART' in '$ARTG'. Please, wait...$NC"
     echo ""
@@ -99,12 +97,8 @@ Cloud(){
     echo "" >> $RCLONELOG
 
 
-    #Design
     echo -e "$GREEN Copying '$DESIGN' to '$DSNG'$NC"
     rclone --ask-password=false sync -v $DESIGN $DSNG &&
-
-    echo -e "$GREEN Copying '$DESIGN' to '$DSNM'$NC"
-    rclone --ask-password=false sync -v $DESIGN $DSNM &&
 
     echo -e "$YELLOW Verifying '$DESIGN' in '$DSNG'. Please, wait...$NC"
     echo ""
@@ -113,17 +107,26 @@ Cloud(){
     echo "" >> $RCLONELOG
 
 
-    #Android
-    echo -e "$GREEN Copying '$ANDROID' to '$MISCM'$NC"
-    rclone --ask-password=false copy -v $ANDROID $MISCM &&
 
-    echo -e "$GREEN Copying '$ANDROID' to '$MISCD'$NC"
-    rclone --ask-password=false copy -v $ANDROID $MISCD &&
+    ## Misc
 
-    echo -e "$YELLOW Verifying '$ANDROID' in '$MISCD'. Please, wait...$NC"
+    echo -e "$GREEN Copying '$ANDROID' to '$GMISC'$NC"
+    rclone --ask-password=false copy -v $ANDROID $GMISC &&
+
+    echo -e "$YELLOW Verifying '$ANDROID' in '$GMISC'. Please, wait...$NC"
     echo ""
-    echo "Verifying '$ANDROID' in '$MISCD'" >> $RCLONELOG
-    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $ANDROID $MISCD &&
+    echo "Verifying '$ANDROID' in '$GMISC'" >> $RCLONELOG
+    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $ANDROID $GMISC &&
+    echo "" >> $RCLONELOG
+
+
+    echo -e "$GREEN Copying '$FRTB' to '$GMISC'$NC"
+    rclone --ask-password=false copy -v $FRTB $GMISC &&
+
+    echo -e "$YELLOW Verifying '$FRTB' in '$GMISC'. Please, wait...$NC"
+    echo ""
+    echo "Verifying '$FRTB' in '$GMISC'" >> $RCLONELOG
+    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $FRTB $GMISC &&
     echo "" >> $RCLONELOG
 }
 
@@ -142,14 +145,12 @@ USB(){
         rsync -a --delete -v $OBSIDIAN $UOBS &&
         rsync -a -v $VAULT $UVT &&
         rsync -a -v $V_CONFIG $UMISC &&
+        rsync -a -v $PDCL $UDOC &&
 
         #Pictures and Videos
         rsync -a -l -v $ART $UART &&
         rsync -a -v $PICTURES $UPIC &&
         rsync -a -v $DESIGN $UDSN &&
-
-        #Music
-        rsync -a --delete -v $MUSIC $UMUS &&
 
         #Code
         rsync -a --delete -v  $CODE $UCODE &&
