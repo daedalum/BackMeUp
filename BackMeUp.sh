@@ -150,7 +150,7 @@ USB(){
         #Pictures and Videos
         rsync -a -l -v $ART $UART &&
         rsync -a -v $PICTURES $UPIC &&
-        rsync -a -v $DESIGN $UDSN &&
+        rsync -a --delete -v $DESIGN $UDSN &&
 
         #Code
         rsync -a --delete -v  $CODE $UCODE &&
