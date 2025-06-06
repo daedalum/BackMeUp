@@ -179,8 +179,9 @@ Android(){
     if [[ -z $(adb devices | grep "ZF524PFT7N") ]]; then
     echo "Device not detected. Enable the option 'USB Debugging' and try again."
     else
-        adb pull "sdcard/NewPipeData-moto-g04s.zip" "$ANDROID" &&
-        adb pull "sdcard/NewPipeData-xiaomi.zip" "$ANDROID" 
+        adb pull "sdcard/ADB/jex-export.jex" "$ANDROID"
+        adb pull "sdcard/ADB/NewPipeData-moto-g04s.zip" "$ANDROID" &&
+        adb pull "sdcard/ADB/NewPipeData-xiaomi.zip" "$ANDROID" 
     fi
 
     adb kill-server
