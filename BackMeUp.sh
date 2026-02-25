@@ -52,22 +52,12 @@ Cloud(){
 
 
     echo -e "$GREEN Copying '$VAULT' to '$VLTG'$NC"
-    rclone --ask-password=false copy -v $VAULT $VLTG &&
+    rclone --ask-password=false sync -v $VAULT $VLTG &&
 
     echo -e "$YELLOW Verifying '$VAULT' in '$VLTG'. Please, wait...$NC"
     echo ""
     echo "Verifying '$VAULT' in '$VLTG'" >> $RCLONELOG
     rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $VAULT $VLTG &&
-    echo "" >> $RCLONELOG
-
-    
-    echo -e "$GREEN Copying '$PDCL' to '$PDCG'$NC"
-    rclone --ask-password=false sync -v $PDCL $PDCG &&
-
-    echo -e "$YELLOW Verifying '$PDCL' in '$PDCG'. Please, wait...$NC"
-    echo ""
-    echo "Verifying '$PDCL' in '$PDCG'" >> $RCLONELOG
-    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $PDCL $PDCG &&
     echo "" >> $RCLONELOG
 
 
@@ -110,23 +100,13 @@ Cloud(){
 
     ## Misc
 
-    echo -e "$GREEN Copying '$ANDROID' to '$GMISC'$NC"
-    rclone --ask-password=false copy -v $ANDROID $GMISC &&
+    echo -e "$GREEN Copying '$MISC' to '$GMISC'$NC"
+    rclone --ask-password=false sync -v $MISC $GMISC &&
 
-    echo -e "$YELLOW Verifying '$ANDROID' in '$GMISC'. Please, wait...$NC"
+    echo -e "$YELLOW Verifying '$MISC' in '$GMISC'. Please, wait...$NC"
     echo ""
-    echo "Verifying '$ANDROID' in '$GMISC'" >> $RCLONELOG
-    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $ANDROID $GMISC &&
-    echo "" >> $RCLONELOG
-
-
-    echo -e "$GREEN Copying '$FRTB' to '$GMISC'$NC"
-    rclone --ask-password=false copy -v $FRTB $GMISC &&
-
-    echo -e "$YELLOW Verifying '$FRTB' in '$GMISC'. Please, wait...$NC"
-    echo ""
-    echo "Verifying '$FRTB' in '$GMISC'" >> $RCLONELOG
-    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $FRTB $GMISC &&
+    echo "Verifying '$MISC' in '$GMISC'" >> $RCLONELOG
+    rclone --ask-password=false cryptcheck --log-file=$RCLONELOG $MISC $GMISC &&
     echo "" >> $RCLONELOG
 }
 
